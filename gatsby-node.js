@@ -1,5 +1,4 @@
 const path = require(`path`)
-
 exports.createPages = async ({ graphql, actions }) => {
   const { createPage } = actions
   const { data } = await graphql(`
@@ -12,8 +11,6 @@ exports.createPages = async ({ graphql, actions }) => {
           }
         }
       }
-
-
       allShopifyPage {
         nodes {
           body
@@ -22,21 +19,14 @@ exports.createPages = async ({ graphql, actions }) => {
           handle
         }
       }
-
-    
-
         allShopifyCollection {
           nodes {
             title
             handle
           }
         }
-      
-      
     }
   `)
-
-
    data.allShopifyProduct.edges.forEach(({ node }) => {
       createPage({
         path: `/product/${node.handle}/`,
@@ -49,10 +39,6 @@ exports.createPages = async ({ graphql, actions }) => {
         },
       })
     })
-
-
-
-
  data.allShopifyPage.nodes.forEach((el) => {
     createPage({
       path: `/page/${el.handle}/`,
@@ -64,10 +50,6 @@ exports.createPages = async ({ graphql, actions }) => {
       },
     })
   })
-
-
-
-
   data.allShopifyCollection.nodes.forEach(el => {
     createPage({
       path: `/collection/${el.handle}/`,
@@ -79,7 +61,18 @@ exports.createPages = async ({ graphql, actions }) => {
       },
     })
   })
-  
- 
-
+}
+exports.onCreateWebpackConfig = ({ stage, loaders, actions }) => {
+  if (stage === "build-html") {
+    actions.setWebpackConfig({
+      module: {
+        rules: [
+          {
+            test: /react-carousel-slider/,
+            use: loaders.null(),
+          },
+        ],
+      },
+    })
+  }
 }

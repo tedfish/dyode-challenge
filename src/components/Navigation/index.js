@@ -1,50 +1,69 @@
 import React, { useContext } from 'react'
-import reduce from 'lodash/reduce'
 import PropTypes from 'prop-types'
-
-import StoreContext from '~/context/StoreContext'
 import {
-	CartCounter, 
+	Icons,
 	Container,
 	MenuLink,
-	Wrapper
+	LogoLink,
+	Wrapper,
+	Hamburger,
+	Navbar,
+	Col
 } from './styles'
-
-const useQuantity = () => {
-	const { store: {checkout} } = useContext(StoreContext)
-	const items = checkout ? checkout.lineItems : []
-	const total = reduce(items, (acc, item) => acc + item.quantity, 0)
-	return [total !== 0, total]
-}
-
-const Navigation = ({ siteTitle }) => {
-  const [hasItems, quantity] = useQuantity()
-
-	return(
+import {
+	FaShoppingCart, FaUser, FaSearch, FaBars
+} from 'react-icons/fa';
+import { Link } from "gatsby"
+const Navigation = ({ siteTitle, menuLinks }) => {
+	return (
 		<Wrapper>
 			<Container>
-				<MenuLink to='/'>
-					{siteTitle}
-				</MenuLink>
-				<MenuLink to='/cart'>
-					{hasItems &&
-						<CartCounter>
-							{quantity}
-						</CartCounter>
-					}
-					Cart 🛍
-				</MenuLink>
+				<Col>
+					<Hamburger>
+						<FaBars />
+					</Hamburger>
+					<LogoLink to='/'>
+						{siteTitle}
+					</LogoLink>
+				</Col>
+				<Navbar>
+					<nav>
+						<ul style={{ display: "flex", flex: 1 }}>
+							{menuLinks.map(link => (
+								<li
+									key={link.name}
+									style={{
+										listStyleType: `none`,
+										padding: `1rem`,
+									}}
+								>
+									<Link style={{ color: `white`, textDecoration: `none`, textTransform: `uppercase`, fontSize: `20px`, lineHeight: `24px`, letterSpacing: `.1em` }} to={link.link}>
+										{link.name}
+									</Link>
+								</li>
+							))}
+						</ul>
+					</nav>
+				</Navbar>
+				<Icons>
+					<MenuLink to='/search'>
+						<FaSearch />
+					</MenuLink>
+					<MenuLink to='/account'>
+						<FaUser />
+					</MenuLink>
+					<MenuLink to='/cart'>
+						<FaShoppingCart />
+					</MenuLink>
+				</Icons>
 			</Container>
 		</Wrapper>
 	)
 }
-
 Navigation.propTypes = {
 	siteTitle: PropTypes.string,
 }
-
 Navigation.defaultProps = {
 	siteTitle: ``,
 }
-
 export default Navigation

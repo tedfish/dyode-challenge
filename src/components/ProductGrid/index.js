@@ -1,6 +1,5 @@
 import React, { useContext } from 'react'
 import { useStaticQuery, graphql, Link } from 'gatsby'
-
 import StoreContext from '~/context/StoreContext'
 import {
   Grid,
@@ -9,7 +8,6 @@ import {
   PriceTag
 } from './styles'
 import { Img } from '~/utils/styles'
-
 const ProductGrid = () => {
   const { store: {checkout} } = useContext(StoreContext)
   const { allShopifyProduct } = useStaticQuery(
@@ -47,13 +45,11 @@ const ProductGrid = () => {
       }
     `
   )
-
   const getPrice = price => Intl.NumberFormat(undefined, {
     currency: checkout.currencyCode ? checkout.currencyCode : 'EUR',
     minimumFractionDigits: 2,
     style: 'currency',
   }).format(parseFloat(price ? price : 0))
-
   return (
     <Grid>
       {allShopifyProduct.edges
@@ -74,5 +70,4 @@ const ProductGrid = () => {
     </Grid>
   )
 }
-
 export default ProductGrid

@@ -1,16 +1,42 @@
 const path = require('path')
-
 require('dotenv').config({
   path: `.env.${process.env.NODE_ENV}`
 })
-
 module.exports = {
   siteMetadata: {
-    title: `Gatsby Shopify Starter`,
-    description: `Kick off your next, ecommerce experience with this Gatsby starter. This starter ships with credentials to a shopify demo store so you can try it out immediately.`,
-    author: `@alexanderhorl`,
+    title: `Logo`,
+    description: `Headless Shopify on GatsbyJS`,
+    author: `@tedfish`,
+    menuLinks: [
+      {
+        name: 'Men\'s',
+        link: '/mens'
+      },
+      {
+        name: 'Women\'s',
+        link: '/womens'
+      },
+      {
+        name: 'Accessories',
+        link: '/accessories'
+      },
+      {
+        name: 'Sale',
+        link: '/sale'
+      }
+    ]
   },
   plugins: [
+    {
+      resolve: `gatsby-plugin-google-fonts`,
+      options: {
+        fonts: [
+          `Lato\:400`,
+          `Pacifico\:400`
+        ],
+        display: 'swap'
+      }
+    },
     `gatsby-plugin-react-helmet`,
     {
       resolve: `gatsby-source-filesystem`,
@@ -41,7 +67,6 @@ module.exports = {
         // Example: 'gatsby-source-shopify-test-shop' if your Shopify address is
         // 'gatsby-source-shopify-test-shop.myshopify.com'.
         shopName: process.env.SHOP_NAME,
-
         // An API access token to your Shopify shop. This is required.
         // You can generate an access token in the "Manage private apps" section
         // of your shop's Apps settings. In the Storefront API section, be sure
@@ -49,7 +74,6 @@ module.exports = {
         // Storefront API".
         // See: https://help.shopify.com/api/custom-storefronts/storefront-api/getting-started#authentication
         accessToken: process.env.SHOPIFY_ACCESS_TOKEN,
-
         // Set verbose to true to display a verbose output on `npm run develop`
         // or `npm run build`. This prints which nodes are being fetched and how
         // much time was required to fetch and process the data.
@@ -63,12 +87,12 @@ module.exports = {
         '~': path.join(__dirname, 'src/'),
       },
     },
-    {
-      resolve: `gatsby-plugin-offline`,
-      options: {
-        precachePages: [`/product/*`, `/collection/*`, `/`],
-      },
-    },
+    // {
+    //   resolve: `gatsby-plugin-offline`,
+    //   options: {
+    //     precachePages: [`/product/*`, `/collection/*`, `/`],
+    //   },
+    // },
     {
       resolve: `gatsby-plugin-google-analytics`,
       options: {

@@ -12,22 +12,17 @@ const CollectionPage = ({ data })=> {
     const collection = data.shopifyCollection
     const { store: {checkout} } = useContext(StoreContext)
    console.log(collection.products)
-
-
     const getPrice = price => Intl.NumberFormat(undefined, {
         currency: checkout.currencyCode ? checkout.currencyCode : 'EUR',
         minimumFractionDigits: 2,
         style: 'currency',
       }).format(parseFloat(price ? price : 0))
-    
     return (
         <div>
     <h1>{collection.title}</h1>
-   
     <Grid>
       {collection.products.length > 0
         ?
-        
         collection.products.map(({ id, handle, title, images: [firstImage], variants: [firstVariant] } ) => (
           <Product key={id} >
             <Link to={`/product/${handle}/`}>
@@ -45,19 +40,12 @@ const CollectionPage = ({ data })=> {
     </Grid>
     </div>
     )
-
-
 } 
 export const query = graphql`
 query($handle: String!) {
-    
     shopifyCollection(handle: { eq: $handle }) {
-    
         title
-
         products {
-          
-          
             id
             title
             handle
@@ -75,13 +63,9 @@ query($handle: String!) {
             }
             variants {
               price
-            
-          
         }
       }
     }
   }
-  
 `
-
 export default CollectionPage
