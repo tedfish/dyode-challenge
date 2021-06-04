@@ -58,7 +58,17 @@ const ProductGrid = () => {
     infinite: true,
     speed: 500,
     slidesToShow: 4,
-    slidesToScroll: 1
+    slidesToScroll: 1,
+    mobileFirst: true,
+    responsive: [
+      {
+        breakpoint: 960,
+        settings: {
+          slidesToShow: 2,
+          slidesToScroll: 1
+        }
+      }
+    ]
     };
   return (
     <SectionBlock>

@@ -32,6 +32,10 @@ export const SectionTitle = styled.h2`
   line-height: 70px;
   text-align: center;
   margin-top: 45px;
+  @media (max-width: ${breakpoints.s}px){
+    font-size: 26px;
+    line-height: 46px;
+  }
 `
 export const PriceTag = styled.span`
 font-family: "Pacifico";

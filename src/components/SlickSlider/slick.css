@@ -239,7 +239,7 @@
   display: none;
 }
 .sliderHero {
-  background-position: top;
+  background-position: center;
   background-size: cover;
   background-repeat: no-repeat;
 }
@@ -277,4 +277,35 @@
 }
 .cta {
     margin: 25px 0;
+}
+@media only screen and (max-width: 960px) {
+  .slick-dots {
+    bottom: 245px;
+  }
+  .sliderHero {
+    height:575px;
+  }
+  .sliderHero .inner {
+    padding: 12px 0 38px;
+    color: black;
+    text-align: center;
+    background: #EFEFEF;
+    bottom: 0;
+    position: absolute;
+    width: 100%;
+  }
+  .sliderHero .inner h2 {
+    font-size: 26px;
+    line-height: 46px;
+    margin: 0;
+}
+.sliderHero .inner p {
+  margin: 15px 0;
+  font-size: 14px;
+  line-height: 17px;
+  display: block;
+}
+.sliderHero .inner.white {
+  color: black;
+}
 }

@@ -7,6 +7,8 @@ export const Grid = styled.div`
   margin: 50px;
   @media (max-width: ${breakpoints.s}px){
     grid-template-columns: repeat(1, 1fr);
+    gap: 15px;
+    margin: 15px;
   }
 `
 export const Product = styled.div`
