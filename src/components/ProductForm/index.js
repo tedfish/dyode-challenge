@@ -2,9 +2,7 @@ import React, { useState, useContext, useEffect, useCallback } from 'react'
 import find from 'lodash/find'
 import isEqual from 'lodash/isEqual'
 import PropTypes from 'prop-types'
-
 import StoreContext from '~/context/StoreContext'
-
 const ProductForm = ({ product }) => {
   const {
     options,
@@ -18,11 +16,9 @@ const ProductForm = ({ product }) => {
     addVariantToCart,
     store: { client, adding },
   } = useContext(StoreContext)
-
   const productVariant =
     client.product.helpers.variantForOptions(product, variant) || variant
   const [available, setAvailable] = useState(productVariant.availableForSale)
-
   const checkAvailability = useCallback(
     productId => {
       client.product.fetch(productId).then(() => {
@@ -35,35 +31,27 @@ const ProductForm = ({ product }) => {
     },
     [client.product, productVariant.shopifyId, variants]
   )
-
   useEffect(() => {
     checkAvailability(product.shopifyId)
   }, [productVariant, checkAvailability, product.shopifyId])
-
   const handleQuantityChange = ({ target }) => {
     setQuantity(target.value)
   }
-
   const handleOptionChange = (optionIndex, { target }) => {
     const { value } = target
     const currentOptions = [...variant.selectedOptions]
-
     currentOptions[optionIndex] = {
       ...currentOptions[optionIndex],
       value,
     }
-
     const selectedVariant = find(variants, ({ selectedOptions }) =>
       isEqual(currentOptions, selectedOptions)
     )
-
     setVariant({ ...selectedVariant })
   }
-
   const handleAddToCart = () => {
     addVariantToCart(productVariant.shopifyId, quantity)
   }
-
   /* 
   Using this in conjunction with a select input for variants 
   can cause a bug where the buy button is disabled, this 
@@ -86,13 +74,11 @@ const ProductForm = ({ product }) => {
     if (match.availableForSale === true) return false
     return true
   }
-
   const price = Intl.NumberFormat(undefined, {
     currency: minVariantPrice.currencyCode,
     minimumFractionDigits: 2,
     style: 'currency',
   }).format(variant.price)
-
   return (
     <>
       <h3>{price}</h3>
@@ -102,7 +88,7 @@ const ProductForm = ({ product }) => {
           <select
             name={name}
             key={id}
-            onChange={event => handleOptionChange(index, event)}
+            onBlur={event => handleOptionChange(index, event)}
           >
             {values.map(value => (
               <option
@@ -139,7 +125,6 @@ const ProductForm = ({ product }) => {
     </>
   )
 }
-
 ProductForm.propTypes = {
   product: PropTypes.shape({
     descriptionHtml: PropTypes.string,
@@ -179,5 +164,4 @@ ProductForm.propTypes = {
   }),
   addVariantToCart: PropTypes.func,
 }
-
 export default ProductForm
