@@ -14,11 +14,13 @@ export const Product = styled.div`
   min-height: 100%;
   flex-direction: column;
 `
-export const Title = styled.span`
-  font-weight: 300;
-  font-size: 1.2rem;
+export const Title = styled.div`
+  font-family: "Pacifico";
+  font-size: 40px;
+  line-height: 70px;
   text-align: center;
   background: #10504F;
+  color: white;
 `
 export const PriceTag = styled.span`
   font-weight: 300;
